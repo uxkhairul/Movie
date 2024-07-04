@@ -101,9 +101,7 @@ const HomeScreen = ({ navigation }: any) => {
     ) {
         return (
             <>
-                <View style={styles.inputHeaderContainer}>
-                    <InputHeader searchFunction={searchMoviesFunction} />
-                </View>
+                <View style={styles.inputHeaderContainer}></View>
                 <ScrollView
                     style={styles.container}
                     bounces={false}
@@ -124,9 +122,7 @@ const HomeScreen = ({ navigation }: any) => {
 
     return (
         <>
-            <View style={styles.inputHeaderContainer}>
-                <InputHeader searchFunction={searchMoviesFunction} />
-            </View>
+            <View style={styles.inputHeaderContainer}></View>
             <ScrollView
                 style={styles.container}
                 bounces={true}
@@ -263,6 +259,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: SPACING.space_36,
         paddingTop: SPACING.space_28,
         backgroundColor: COLORS.Black,
+        height: SPACING.space_36,
     },
     containerGap36: {
         gap: SPACING.space_36,

@@ -15,5 +15,6 @@ const styles = StyleSheet.create({
         color: COLORS.White,
         paddingHorizontal: SPACING.space_36,
         paddingVertical: SPACING.space_28,
+        fontWeight: 'bold',
     },
 });
