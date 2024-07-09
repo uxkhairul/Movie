@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import MovieDatailsScreen from './src/screens/MovieDetailsScreen';
 import SeatBookingScreen from './src/screens/SeatBookingScreen';
 import TabNavigator from './src/navigators/tabNavigator';
+import SplashScreen from './src/screens/SplashScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -11,6 +12,11 @@ export default function App() {
     return (
         <NavigationContainer>
             <Stack.Navigator screenOptions={{ headerShown: false }}>
+                <Stack.Screen
+                    name='Splash'
+                    component={SplashScreen}
+                    options={{ animation: 'slide_from_right' }}
+                />
                 <Stack.Screen
                     name='Tab'
                     component={TabNavigator}
@@ -20,11 +26,6 @@ export default function App() {
                     name='MovieDetails'
                     component={MovieDatailsScreen}
                     options={{ animation: 'slide_from_right' }}
-                />
-                <Stack.Screen
-                    name='SeatBooking'
-                    component={SeatBookingScreen}
-                    options={{ animation: 'slide_from_bottom' }}
                 />
             </Stack.Navigator>
         </NavigationContainer>

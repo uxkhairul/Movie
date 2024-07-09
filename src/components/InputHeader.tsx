@@ -39,7 +39,7 @@ const InputHeader = (props: any) => {
                     <Ionicons
                         name='search-outline'
                         size={FONTSIZE.size_20}
-                        color={COLORS.Orange}
+                        color={COLORS.Pink}
                     />
                 </TouchableOpacity>
             </View>

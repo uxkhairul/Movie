@@ -1,12 +1,13 @@
 import React from 'react';
 import HomeScreen from '../screens/HomeScreen';
 import SearchScreen from '../screens/SearchScreen';
-import TicketScreen from '../screens/TicketScreen';
 import UserAccountScreen from '../screens/UserAccountScreen';
 import { COLORS, FONTSIZE, SPACING } from '../theme/theme';
 import { StyleSheet, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
 
 const Tab = createBottomTabNavigator();
 
@@ -35,12 +36,12 @@ const TabNavigator = () => {
                                 style={[
                                     styles.activeTabBackground,
                                     focused && {
-                                        backgroundColor: COLORS.Orange,
+                                        backgroundColor: COLORS.Pink,
                                     },
                                 ]}
                             >
-                                <Ionicons
-                                    name='play-outline'
+                                <MaterialCommunityIcons
+                                    name='movie-outline'
                                     color={COLORS.White}
                                     size={FONTSIZE.size_30}
                                 />
@@ -60,37 +61,12 @@ const TabNavigator = () => {
                                 style={[
                                     styles.activeTabBackground,
                                     focused && {
-                                        backgroundColor: COLORS.Orange,
+                                        backgroundColor: COLORS.Pink,
                                     },
                                 ]}
                             >
                                 <Ionicons
                                     name='search-outline'
-                                    color={COLORS.White}
-                                    size={FONTSIZE.size_30}
-                                />
-                            </View>
-                        );
-                    },
-                }}
-            />
-            <Tab.Screen
-                name='Ticket'
-                component={TicketScreen}
-                options={{
-                    tabBarShowLabel: false,
-                    tabBarIcon: ({ focused, color, size }) => {
-                        return (
-                            <View
-                                style={[
-                                    styles.activeTabBackground,
-                                    focused && {
-                                        backgroundColor: COLORS.Orange,
-                                    },
-                                ]}
-                            >
-                                <Ionicons
-                                    name='ticket-outline'
                                     color={COLORS.White}
                                     size={FONTSIZE.size_30}
                                 />
@@ -110,12 +86,12 @@ const TabNavigator = () => {
                                 style={[
                                     styles.activeTabBackground,
                                     focused
-                                        ? { backgroundColor: COLORS.Orange }
+                                        ? { backgroundColor: COLORS.Pink }
                                         : {},
                                 ]}
                             >
-                                <Ionicons
-                                    name='person-outline'
+                                <Feather
+                                    name='bookmark'
                                     color={COLORS.White}
                                     size={FONTSIZE.size_30}
                                 />

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import {
     Text,
     View,
@@ -8,9 +8,10 @@ import {
     FlatList,
 } from 'react-native';
 import { COLORS, SPACING } from '../theme/theme';
-import { baseImagePath, searchMovies } from '../api/apicalls';
+import { baseImagePath, searchMovies, popularMovies } from '../api/apicalls';
 import InputHeader from '../components/InputHeader';
 import SubMovieCard from '../components/SubMovieCard';
+import { useFocusEffect } from '@react-navigation/native';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -30,37 +31,63 @@ const SearchScreen = ({ navigation }: any) => {
         }
     };
 
+    useFocusEffect(
+        useCallback(() => {
+            const fetchData = async () => {
+                try {
+                    let response = await fetch(popularMovies);
+                    let json = await response.json();
+                    setSearchList(json.results);
+                } catch (error) {
+                    console.error('Error fetching Popular movies: ', error);
+                }
+            };
+
+            fetchData();
+
+            return () => {
+                // Cleanup or unmount logic if needed
+            };
+        }, [])
+    );
+
     return (
-        <View style={styles.container}>
-            <View style={styles.inputHeaderContainer}>
-                <InputHeader searchFunction={searchMoviesFunction} />
+        <>
+            <View style={styles.container}>
+                <View style={styles.inputHeaderContainer}>
+                    <InputHeader searchFunction={searchMoviesFunction} />
+                </View>
+
+                <StatusBar hidden />
+                <View>
+                    <FlatList
+                        data={searchList}
+                        keyExtractor={(item: any) => item.id}
+                        bounces={false}
+                        numColumns={2}
+                        showsVerticalScrollIndicator={false}
+                        contentContainerStyle={styles.centerContainer}
+                        renderItem={({ item, index }) => (
+                            <SubMovieCard
+                                shoudlMarginatedAtEnd={false}
+                                shouldMarginatedAround={true}
+                                cardFunction={() => {
+                                    navigation.push('MovieDetails', {
+                                        movieid: item.id,
+                                    });
+                                }}
+                                cardWidth={width / 2 - SPACING.space_12 * 2}
+                                title={item.original_title}
+                                imagePath={baseImagePath(
+                                    'w342',
+                                    item.poster_path
+                                )}
+                            />
+                        )}
+                    />
+                </View>
             </View>
-            <StatusBar hidden />
-            <View>
-                <FlatList
-                    data={searchList}
-                    keyExtractor={(item: any) => item.id}
-                    bounces={false}
-                    numColumns={2}
-                    showsVerticalScrollIndicator={false}
-                    contentContainerStyle={styles.centerContainer}
-                    renderItem={({ item, index }) => (
-                        <SubMovieCard
-                            shoudlMarginatedAtEnd={false}
-                            shouldMarginatedAround={true}
-                            cardFunction={() => {
-                                navigation.push('MovieDetails', {
-                                    movieid: item.id,
-                                });
-                            }}
-                            cardWidth={width / 2 - SPACING.space_12 * 2}
-                            title={item.original_title}
-                            imagePath={baseImagePath('w342', item.poster_path)}
-                        />
-                    )}
-                />
-            </View>
-        </View>
+        </>
     );
 };
 
@@ -78,6 +105,9 @@ const styles = StyleSheet.create({
     },
     centerContainer: {
         alignItems: 'center',
+    },
+    linearGradient: {
+        height: '100%',
     },
 });
 

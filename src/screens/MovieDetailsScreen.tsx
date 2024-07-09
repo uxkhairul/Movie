@@ -42,6 +42,7 @@ const getMovieCastDetails = async (movieid: number) => {
     try {
         let response = await fetch(movieCastDetails(movieid));
         let json = await response.json();
+        json.cast = json.cast.slice(0, 10);
         return json;
     } catch (error) {
         console.error(
@@ -69,8 +70,6 @@ const MovieDetailsScreen = ({ navigation, route }: any) => {
         })();
     }, []);
 
-    console.log(movieCastData);
-
     if (
         movieData == undefined &&
         movieData == null &&
@@ -92,7 +91,7 @@ const MovieDetailsScreen = ({ navigation, route }: any) => {
                     />
                 </View>
                 <View style={styles.loadingContainer}>
-                    <ActivityIndicator size={'large'} color={COLORS.Orange} />
+                    <ActivityIndicator size={'large'} color={COLORS.Pink} />
                 </View>
             </ScrollView>
         );
@@ -320,6 +319,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         gap: SPACING.space_10,
         alignItems: 'center',
+        justifyContent: 'center',
     },
     starIcon: {
         fontSize: FONTSIZE.size_20,
@@ -329,6 +329,7 @@ const styles = StyleSheet.create({
         fontFamily: FONTFAMILY.poppins_light,
         fontSize: FONTSIZE.size_14,
         color: COLORS.White,
+        marginTop: SPACING.space_16,
     },
     containerGap24: {
         gap: SPACING.space_24,
@@ -341,7 +342,7 @@ const styles = StyleSheet.create({
         borderRadius: BORDERRADIUS.radius_25 * 2,
         paddingHorizontal: SPACING.space_24,
         paddingVertical: SPACING.space_10,
-        backgroundColor: COLORS.Orange,
+        backgroundColor: COLORS.Pink,
         fontFamily: FONTFAMILY.poppins_medium,
         fontSize: FONTSIZE.size_14,
         color: COLORS.White,

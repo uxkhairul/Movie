@@ -9,6 +9,8 @@ import {
     ScrollView,
     StatusBar,
     FlatList,
+    Image,
+    Pressable,
 } from 'react-native';
 import { COLORS, SPACING } from '../theme/theme';
 import {
@@ -17,10 +19,10 @@ import {
     popularMovies,
     baseImagePath,
 } from '../api/apicalls';
-import InputHeader from '../components/InputHeader';
 import CategoryHeader from '../components/CategoryHeader';
 import SubMovieCard from '../components/SubMovieCard';
 import MovieCard from '../components/MovieCard';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const { width, height } = Dimensions.get('window');
 
@@ -87,10 +89,6 @@ const HomeScreen = ({ navigation }: any) => {
         })();
     }, []);
 
-    const searchMoviesFunction = () => {
-        navigation.navigate('Search');
-    };
-
     if (
         nowPlayingMoviesList == undefined &&
         nowPlayingMoviesList == null &&
@@ -110,10 +108,7 @@ const HomeScreen = ({ navigation }: any) => {
                     <StatusBar hidden />
 
                     <View style={styles.loadingContainer}>
-                        <ActivityIndicator
-                            size={'large'}
-                            color={COLORS.Orange}
-                        />
+                        <ActivityIndicator size={'large'} color={COLORS.Pink} />
                     </View>
                 </ScrollView>
             </>
@@ -122,7 +117,19 @@ const HomeScreen = ({ navigation }: any) => {
 
     return (
         <>
-            <View style={styles.inputHeaderContainer}></View>
+            <View style={styles.inputHeaderContainer}>
+                <LinearGradient
+                    colors={[COLORS.Pink, COLORS.Black]}
+                    style={styles.linearGradient}
+                >
+                    <Pressable onPress={() => navigation.navigate('Splash')}>
+                        <Image
+                            source={require('../assets/image/moviecafe-logo-text.png')}
+                            style={styles.logoImage}
+                        />
+                    </Pressable>
+                </LinearGradient>
+            </View>
             <ScrollView
                 style={styles.container}
                 bounces={true}
@@ -246,9 +253,13 @@ const styles = StyleSheet.create({
     container: {
         display: 'flex',
         backgroundColor: COLORS.Black,
+        marginTop: 130,
     },
     scrollViewContainer: {
         flex: 1,
+    },
+    linearGradient: {
+        height: '100%',
     },
     loadingContainer: {
         flex: 1,
@@ -256,13 +267,22 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     inputHeaderContainer: {
-        paddingHorizontal: SPACING.space_36,
-        paddingTop: SPACING.space_28,
         backgroundColor: COLORS.Black,
-        height: SPACING.space_36,
+        height: 130,
+        position: 'absolute',
+        top: 0,
+        width: '100%',
     },
     containerGap36: {
         gap: SPACING.space_36,
+    },
+    logoImage: {
+        width: '35%',
+        height: 38,
+        borderRadius: 0,
+        justifyContent: 'center',
+        alignSelf: 'center',
+        marginTop: 65,
     },
 });
 

@@ -9,7 +9,6 @@ import {
 } from '../theme/theme';
 
 const CastCard = (props: any) => {
-    console.log(props.imagePath);
     return (
         <View
             style={[
@@ -28,11 +27,8 @@ const CastCard = (props: any) => {
                 source={{ uri: props.imagePath }}
                 style={[styles.cardImage, { width: props.cardWidth }]}
             />
-            <Text style={styles.title} numberOfLines={1}>
+            <Text style={styles.title} numberOfLines={2}>
                 {props.title}
-            </Text>
-            <Text style={styles.subtitle} numberOfLines={1}>
-                {props.subtitle}
             </Text>
         </View>
     );
@@ -45,18 +41,16 @@ const styles = StyleSheet.create({
     cardImage: {
         aspectRatio: 1920 / 2880,
         borderRadius: BORDERRADIUS.radius_25 * 4,
+        borderWidth: 2,
+        borderColor: COLORS.WhiteRGBA50,
     },
     title: {
         alignSelf: 'stretch',
         fontFamily: FONTFAMILY.poppins_medium,
         fontSize: FONTSIZE.size_12,
         color: COLORS.White,
-    },
-    subtitle: {
-        alignSelf: 'stretch',
-        fontFamily: FONTFAMILY.poppins_medium,
-        fontSize: FONTSIZE.size_10,
-        color: COLORS.White,
+        marginTop: SPACING.space_10,
+        textAlign: 'center',
     },
 });
 
